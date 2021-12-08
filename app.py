@@ -53,11 +53,42 @@ def findr():
     return render_template('findr.html', user_obj=user_obj, user=user_obj)
 
 
-
+#Destination Pages
 @app.route('/iceland')
 def iceland():
     return render_template('iceland.html')
 
+@app.route('/tokyo')
+def tokyo():
+    return render_template('tokyo.html')
+
+@app.route('/singapore')
+def singapore():
+    return render_template('singapore.html')
+
+@app.route('/india')
+def india():
+    return render_template('india.html')
+
+@app.route('/costarica')
+def costarica():
+    return render_template('costarica.html')
+
+@app.route('/santorini')
+def santorini():
+    return render_template('santorini.html')
+
+@app.route('/china')
+def china():
+    return render_template('china.html')
+
+@app.route('/zamibia')
+def zamibia():
+    return render_template('zamibia.html')
+
+@app.route('/canada')
+def canada():
+    return render_template('canada.html')
 
 
 @app.route('/comments')
