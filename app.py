@@ -8,9 +8,10 @@ client = MongoClient(host=host)
 
 db = client.dfindr
 
-products = db.products
+
 users = db.users
-donations = db.donations
+#donations = db.donations
+comments = db.comments
 
 app = Flask(__name__)
 
@@ -93,11 +94,6 @@ def canada():
     return render_template('canada.html')
 
 
-@app.route('/comments')
-def comment():
-    return render_template('comment.html')
-
-
 
 @app.route('/contact')
 def contact():
@@ -106,12 +102,12 @@ def contact():
 
 @app.route('/insights')
 def insight_index(): 
-    donates=list(donations.find())
-    for i in range(len(donates)):
-      donates[i]['amount'] = str(donates[i]['amount'])
-    donates.sort(key=lambda x: x['date'], reverse=False)
+    insight=list(comments.find())
+    for i in range(len(insight)):
+      insight[i]['amount'] = str(insight[i]['amount'])
+    insight.sort(key=lambda x: x['date'], reverse=False)
     user_obj = users.find_one({'username': session['username']})
-    return render_template("insights.html", donations=donates, user_obj=user_obj, user=user_obj)
+    return render_template("insights.html", comments=insight, user_obj=user_obj, user=user_obj)
 
 
 
@@ -120,20 +116,20 @@ def insights_new():
     return render_template('insights_new.html')
 
 
-@app.route('/donations', methods=['POST'])
+@app.route('/comments', methods=['POST'])
 def donation_submit():
-    donation = {
+    comment = {
         'name': request.form.get('destination-name'),
         'amount': request.form.get('amount'),
         'date': request.form.get('date')
       }
-    donations.insert_one(donation)
+    comments.insert_one(comment)
     return redirect(url_for('insight_index'))
 
 
-@app.route('/donations/<donation_id>/remove', methods=['POST'])
-def donation_del(donation_id):
-    donations.delete_one({'_id': ObjectId(donation_id)})
+@app.route('/comments/<comment_id>/remove', methods=['POST'])
+def donation_del(comment_id):
+    comments.delete_one({'_id': ObjectId(comment_id)})
     return redirect(url_for('insight_index'))
 
 

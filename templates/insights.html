@@ -15,24 +15,24 @@
     </div>
   </div>
 </nav>
-{% for donation in donations %}
+{% for comment in comments %}
 <div class="container-fluid w-100 d-flex align-items-center flex-column">
   <div class="row w-75">
     <div class="col-5 mb-0">
-      <h3 style="color: black;">{{ donation.name }}</h3>
+      <h3 style="color: black;">{{ comment.name }}</h3>
     </div>
     <div class="col-3 mb-1">
-      <small style="font-size: 0.8em">{{ donation.date }}</small>
+      <small style="font-size: 0.8em">{{ comment.date }}</small>
     </div>
     
     <div class="col-5 mb-2">
       <textarea class='form-control'>
-        {{ donation.amount }}
+        {{ comment.amount }}
       </textarea>
       
     </div>
     <div class="col-1 text-center">
-      <form method="POST" action="/donations/{{ donation._id }}/remove">
+      <form method="POST" action="/comments/{{ comment._id }}/remove">
         <button class="btn btn-danger p-1" style="margin-top: 10px;" type="submit">Remove</button>
       </form>
     </div>

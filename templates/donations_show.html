@@ -1,27 +1,26 @@
-<h1 class="mb-5">Donation</h1>
 
 <div class="row" style="color: black;">
-  {% for donation in donations %}
+  {% for comment in comments %}
   <div class="row">
     <div class="col-2 mb-5 text-center">
-      <small>{{ donation.date }}</small>
+      <small>{{ comment.date }}</small>
     </div>
     <div class="col-4 mb-5 text-center">
-      <h2>{{ donation.name }}</h2>
+      <h2>{{ comment.name }}</h2>
     </div>
     
     <div class="col-2 mb-5 text-center">
-      <h1>{{ donation.amount }}</h1>
+      <h1>{{ comment.amount }}</h1>
     </div>
   </div>
   {% endfor %}
 </div>
 
 <div class="row">
-  {% for donation in donations %}
+  {% for comment in comments %}
   <div class="col-4 mb-5 text-center">
-    <h2>{{ donation.name }}</h2>
-    <small>{{ donation.date }}</small>
+    <h2>{{ comment.name }}</h2>
+    <small>{{ comment.date }}</small>
   </div>
   {% endfor %} {% endblock %}
 </div>
