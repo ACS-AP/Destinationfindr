@@ -1,16 +1,16 @@
 {% extends 'base.html' %} {% block content %}
 <div style="margin-top: 80px;"></div>
 
-<nav class="navbar navbar-default bg-black mb-4 navbar-fixed-top">
+<nav class="navbar navbar-default bg-white mb-4 navbar-fixed-top">
   <div class="container-fluid">
     <div>
     </div>
     <div>
-      <h2 class="section-title">View and add Insights about Destinations</h2>
+      <h2 style="margin-top: 10px; color: black; text-decoration-line: underline;">View and Add Insights about Destinations</h2>
     </div>
     <div class="pull-left">
-      <a href="/insights/new" class="btn btn-info navbar-btn text-light"
-        >   -Add Insight-   </a
+      <a href="/insights/new" class="btn btn-info navbar-btn text-dark"
+        >   --Add Insight--   </a
       >
     </div>
   </div>
@@ -32,7 +32,7 @@
       
     </div>
     <div class="col-1 text-center">
-      <form method="POST" action="/comments/{{ comment._id }}/remove">
+      <form method="POST" action="/comments/{{ comment._id }}/delete">
         <button class="btn btn-danger p-1" style="margin-top: 10px;" type="submit">Remove</button>
       </form>
     </div>

@@ -8,9 +8,8 @@ client = MongoClient(host=host)
 
 db = client.dfindr
 
-
+#RESOURCES
 users = db.users
-#donations = db.donations
 comments = db.comments
 
 app = Flask(__name__)
@@ -93,11 +92,12 @@ def zamibia():
 def canada():
     return render_template('canada.html')
 
-
+#------------------------------------------------
 
 @app.route('/contact')
 def contact():
     return render_template('contact.html')
+
 
 
 @app.route('/insights')
@@ -116,6 +116,7 @@ def insights_new():
     return render_template('insights_new.html')
 
 
+
 @app.route('/comments', methods=['POST'])
 def donation_submit():
     comment = {
@@ -127,7 +128,8 @@ def donation_submit():
     return redirect(url_for('insight_index'))
 
 
-@app.route('/comments/<comment_id>/remove', methods=['POST'])
+
+@app.route('/comments/<comment_id>/delete', methods=['POST'])
 def donation_del(comment_id):
     comments.delete_one({'_id': ObjectId(comment_id)})
     return redirect(url_for('insight_index'))
