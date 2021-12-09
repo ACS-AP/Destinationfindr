@@ -118,7 +118,7 @@ def insights_new():
 
 
 @app.route('/comments', methods=['POST'])
-def donation_submit():
+def comment_submit():
     comment = {
         'name': request.form.get('destination-name'),
         'amount': request.form.get('amount'),
@@ -129,8 +129,30 @@ def donation_submit():
 
 
 
+@app.route("/comments/<comment_id>/edit")
+def comment_edit(comment_id):
+    comment = comments.find_one({'_id': ObjectId(comment_id)})
+    return render_template('comment_edit.html', comment=comment)
+
+
+
+@app.route("/comments/<comment_id>", methods=['POST'])
+def comment_update(comment_id):
+    updated_comment = {
+        'name': request.form.get('destination-name'),
+        'amount': request.form.get('amount'),
+        'date': request.form.get('date')
+    }
+
+    comments.update_one(
+        {'_id': ObjectId(comment_id)},
+        {'$set': updated_comment})
+    return redirect(url_for('isight_index', comment_id=comment_id))
+
+
+
 @app.route('/comments/<comment_id>/delete', methods=['POST'])
-def donation_del(comment_id):
+def comment_del(comment_id):
     comments.delete_one({'_id': ObjectId(comment_id)})
     return redirect(url_for('insight_index'))
 
