@@ -26,7 +26,8 @@ def login():
 def userlogin():
     if request.method=='GET':
         session['username']=request.form['username']
-        return render_template('index.html')
+        flash('You are logged in', 'error')
+        return redirect(url_for('login'))
     elif request.method=='POST':
         user = {
         'username': request.form.get('username'),
@@ -36,7 +37,8 @@ def userlogin():
         session['username']=request.form['username']
         print(user)
         user_obj = users.find_one({'username': session['username']})
-        return render_template('index.html')
+        flash(f'You Have Successfully Registered', 'error')
+        return redirect(url_for('login'))
 
 
 
@@ -102,42 +104,39 @@ def contact():
     return render_template('contact.html')
 
 
-
-@app.route('/donate')
-def charity_index(): 
+@app.route('/insights')
+def insight_index(): 
     donates=list(donations.find())
     for i in range(len(donates)):
-      donates[i]['amount'] = float(donates[i]['amount'])
+      donates[i]['amount'] = str(donates[i]['amount'])
     donates.sort(key=lambda x: x['date'], reverse=False)
     user_obj = users.find_one({'username': session['username']})
-    return render_template("charity_index.html", donations=donates, user_obj=user_obj, user=user_obj)
+    return render_template("insights.html", donations=donates, user_obj=user_obj, user=user_obj)
 
 
 
-@app.route('/donations/new')
-def donation_new():
-    return render_template('donations_new.html')
-
+@app.route('/insights/new')
+def insights_new():
+    return render_template('insights_new.html')
 
 
 @app.route('/donations', methods=['POST'])
 def donation_submit():
     donation = {
-        'name': request.form.get('charity-name'),
+        'name': request.form.get('destination-name'),
         'amount': request.form.get('amount'),
-        'date': request.form.get('date'),
+        'date': request.form.get('date')
       }
     donations.insert_one(donation)
-    return redirect(url_for('charity_index'))
-
+    return redirect(url_for('insight_index'))
 
 
 @app.route('/donations/<donation_id>/remove', methods=['POST'])
 def donation_del(donation_id):
     donations.delete_one({'_id': ObjectId(donation_id)})
-    return redirect(url_for('charity_index'))
+    return redirect(url_for('insight_index'))
 
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=4000)
+    app.run(debug=True, port=3000)
