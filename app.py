@@ -98,6 +98,12 @@ def canada():
 def contact():
     return render_template('contact.html')
 
+@app.route('/logout')
+def logout():
+    flash('You are logged out', 'error')
+    session.pop("username", None)
+    return render_template('logout.html')
+
 
 
 @app.route('/insights')
@@ -105,7 +111,7 @@ def insight_index():
     insight=list(comments.find())
     for i in range(len(insight)):
       insight[i]['amount'] = str(insight[i]['amount'])
-    insight.sort(key=lambda x: x['date'], reverse=False)
+    
     user_obj = users.find_one({'username': session['username']})
     return render_template("insights.html", comments=insight, user_obj=user_obj, user=user_obj)
 
@@ -159,4 +165,4 @@ def comment_del(comment_id):
 
 
 if __name__ == '__main__':
-    app.run(debug=True, port=3000)
+    app.run(debug=True, port=7000)
